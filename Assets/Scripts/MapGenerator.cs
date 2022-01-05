@@ -325,7 +325,7 @@ public class MapGenerator : MonoBehaviour
 
     private int _currentDestructionRadius;
 
-    private string _mapPath = "Assets/Resources/Map.txt";
+    //private string _mapPath = "Assets/Resources/Map.txt";
 
 
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour {
 
-  private Rigidbody ballRigidbody;
+  [SerializeField]
+  private Rigidbody eggRigid;
 
   private void OnCollisionEnter(Collision collision)
   {
@@ -13,17 +14,17 @@ public class BallMovement : MonoBehaviour {
 
   private void Awake()
   {
-    ballRigidbody = GetComponent<Rigidbody>();
+    eggRigid = GetComponent<Rigidbody>();
   }
 
   public void MoveBall(Vector3 forceDirection)
   {
-    ballRigidbody.AddForce(forceDirection);
+    eggRigid.AddForce(forceDirection);
   }
 
   public void StopMovement()
   {
-    ballRigidbody.velocity        = Vector3.zero;
-    ballRigidbody.angularVelocity = Vector3.zero;
+    eggRigid.velocity        = Vector3.zero;
+    eggRigid.angularVelocity = Vector3.zero;
   }
 }

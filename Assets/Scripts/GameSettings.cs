@@ -30,7 +30,7 @@ public class GameSettings : ScriptableObject
 	}
 	
 	[SerializeField]
-	private float _destructionTime = 2f;
+	private float _destructionTime = 3f;	//2f	-	WaitForSeconds(destructionTime);
 	[SerializeField]
 	private List<LevelSettings> _levels;
 }

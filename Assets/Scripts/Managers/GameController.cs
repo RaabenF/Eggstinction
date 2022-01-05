@@ -39,7 +39,7 @@ public class GameController : Singleton<GameController>
       for(int i = 1; i < _gameSettings.Levels.Count; i++)
       {
         _levelsList.Insert(UnityEngine.Random.Range(1,_levelsList.Count), i);
-        Debug.Log(i);
+        //Debug.Log(i);
       }
       string asd = "";
       foreach(int i in _levelsList)
@@ -62,14 +62,14 @@ public class GameController : Singleton<GameController>
         _levelToPlay++;
         if(_levelToPlay >= _levelsList.Count)
         {
-          _levelToPlay = 1;
+          _levelToPlay = 2;
         }
         _levelWon = false;
       }
     }
     else
     {
-      _levelToPlay = 0;
+      _levelToPlay = 0;   //0=tutorial
       _tutorialPlayed = true;
     }
     Debug.Log("Loading level " + _levelsList[_levelToPlay]);
@@ -79,7 +79,7 @@ public class GameController : Singleton<GameController>
 
   public static bool _tutorialPlayed = false;
   public static bool _levelWon = false;
-  private static int _levelToPlay;
+  private static int _levelToPlay=0;
 
   public void PlayerMovementTurn()
   {

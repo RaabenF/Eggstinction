@@ -36,7 +36,7 @@ public class GameMenuUIController : MonoBehaviour
   private void OnMenuButtonClick()
   {
     GameController.Instance.ButtonClick();
-    UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    UnityEngine.SceneManagement.SceneManager.LoadScene(0);  //scene 0 = main menu scene
   }
 
   private void ShowGameOver()

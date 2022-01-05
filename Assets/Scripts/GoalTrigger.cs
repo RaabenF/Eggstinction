@@ -7,13 +7,14 @@ public class GoalTrigger : MonoBehaviour
     [SerializeField]
     private float velocityMagnitudeWin = 1.5f;
 
-    private Rigidbody ballRigidbody;
+    [SerializeField]
+    private Rigidbody eggRigid;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ball") && ballRigidbody == null)
+        if (other.CompareTag("Ball") && eggRigid == null)
         {
-            ballRigidbody = other.GetComponent<Rigidbody>();
+            eggRigid = other.GetComponent<Rigidbody>();
         }
     }
 
@@ -21,15 +22,15 @@ public class GoalTrigger : MonoBehaviour
     {
         if (other.CompareTag("Ball"))
         {
-            if (ballRigidbody.velocity.magnitude < velocityMagnitudeWin)
+            if (eggRigid.velocity.magnitude < velocityMagnitudeWin)
             {
                 if (!_enterInHole)
                 {
                     _enterInHole = true;
                     GameController.Instance.PlayerWin();
                 }
-                ballRigidbody.useGravity = false;
-                ballRigidbody.transform.position = Vector3.Lerp(ballRigidbody.transform.position, _ballEndTransform.position, 5f * Time.deltaTime);
+                eggRigid.useGravity = false;
+                eggRigid.transform.position = Vector3.Lerp(eggRigid.transform.position, _ballEndTransform.position, 5f * Time.deltaTime);
             }
         }
     }

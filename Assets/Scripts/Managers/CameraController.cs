@@ -146,7 +146,7 @@ public class CameraController : Singleton<CameraController>
 
   private Vector3 finalPosition;
 
-  private new Camera camera;
+  new Camera camera;
 
   private float zoomOffset;
 

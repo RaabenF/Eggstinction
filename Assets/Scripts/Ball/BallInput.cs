@@ -56,9 +56,10 @@ public class BallInput : MonoBehaviour {
   {
     if (!mouseDown && preparedToPlayGolf && Input.GetMouseButtonDown(0))
     {
-      arrowSprite.EnableArrow(true);
-      preparedToPlayGolf = false;
-      mousePress();
+          arrowSprite.EnableArrow(true);
+          preparedToPlayGolf = false;
+        mouseDown = true;
+        currentCharge = 0;
     }
 
     if (mouseDown)
@@ -68,7 +69,10 @@ public class BallInput : MonoBehaviour {
 
       if (Input.GetMouseButtonUp(0))
       {
-        mouseRelease();
+        GameController.Instance.BallShot();
+        mouseDown = false;
+        StartCoroutine(waitToApplyForce());
+        StartCoroutine(waitToReturnPlayerControl());
       }
     }
 
@@ -86,19 +90,6 @@ public class BallInput : MonoBehaviour {
       }
       CameraController.Instance.FollowBall();
     }
-  }
-
-  private void mousePress()
-  {
-    mouseDown = true;
-    currentCharge = 0;
-  }
-
-  private void mouseRelease() {
-    GameController.Instance.BallShot();
-    mouseDown = false;
-    StartCoroutine(waitToApplyForce());
-    StartCoroutine(waitToReturnPlayerControl());
   }
 
   private void getDirection() {
