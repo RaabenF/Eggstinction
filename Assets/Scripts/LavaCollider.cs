@@ -10,23 +10,18 @@ public class LavaCollider : MonoBehaviour {
   {
     if (!stopCollision && collision.gameObject.CompareTag("Ball"))
     {
-      StopCollision(true);
+      stopCollision=true;
       StartCoroutine(AnimateBall());
       CameraController.Instance.FollowBall();
       GameController.Instance.BallLava();
     }
     else if (!stopCollision && collision.gameObject.CompareTag("Player"))
     {
-      StopCollision(true);
+      stopCollision=true;
       GameController.Instance.CharacterLava();
       GameController.Instance.PlayerDead();
       StartCoroutine(AnimateCollider());
     }
-  }
-
-  private void StopCollision(bool stop)
-  {
-    stopCollision = stop;
   }
 
   private IEnumerator AnimateCollider()
@@ -61,7 +56,7 @@ public class LavaCollider : MonoBehaviour {
       yield return 0;
     }
     GameController.Instance.ResetBallPosition();
-    StopCollision(false);
+      stopCollision=false;
 
     transform.position = initialPosition;
   }

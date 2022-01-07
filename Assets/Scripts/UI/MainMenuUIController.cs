@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +38,7 @@ public class MainMenuUIController : MonoBehaviour
     private void OnPlayButtonClick()
     {
         audioSource.Play();
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);      //scene 1 = game scene + tutorial
     }
 
     private void OnCreditsButtonClick()

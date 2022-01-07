@@ -39,7 +39,7 @@ public class GameController : Singleton<GameController>
       for(int i = 1; i < _gameSettings.Levels.Count; i++)
       {
         _levelsList.Insert(UnityEngine.Random.Range(1,_levelsList.Count), i);
-        //Debug.Log(i);
+        Debug.Log(i);
       }
       string asd = "";
       foreach(int i in _levelsList)
@@ -62,7 +62,7 @@ public class GameController : Singleton<GameController>
         _levelToPlay++;
         if(_levelToPlay >= _levelsList.Count)
         {
-          _levelToPlay = 2;
+          _levelToPlay = 1;
         }
         _levelWon = false;
       }
@@ -81,15 +81,16 @@ public class GameController : Singleton<GameController>
   public static bool _levelWon = false;
   private static int _levelToPlay=0;
 
-  public void PlayerMovementTurn()
-  {
-    OnPlayerMovementTurn();
-  }
 
-  public void BallReady(Transform ballPosition)
+  public void DeployBall(Transform ballPosition)
   {
     _mapGenerator.InstantiateBall(ballPosition.position);
     OnBallReady();
+  }
+
+  public void PlayerMovementTurn()
+  {
+    OnPlayerMovementTurn();
   }
 
   public void PlayerRun()
@@ -163,4 +164,6 @@ public class GameController : Singleton<GameController>
 
   [SerializeField]
   private GameSettings _gameSettings;
+
+
 }

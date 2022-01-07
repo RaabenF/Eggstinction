@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Rigidbody rigidPlayer;
     void Awake()
     {
         allowMovement = false;
-    }
-    void Start()
-    {
         GameController.OnMinigolfTurn += StopMovement;
         GameController.OnPlayerMovementTurn += ResumeMovement;
         GameController.OnPlayerDead += StopMovement;
         GameController.OnPlayerWin += StopMovement;
+    }
+    void Start()
+    {
+        //playerSpawned();
     }
 
     void OnDestroy()
@@ -33,19 +35,11 @@ public class PlayerController : MonoBehaviour
         {
             GameController.Instance.PlayerDead();
         }
-/*
-        if (Input.GetKeyDown(KeyCode.Space) ){
-        }
 
-        Input.GetKey(KeyCode.Space);
-
-        Input.GetKeyDown(KeyCode.Space);
-        Input.GetKeyUp(KeyCode.Space);
-  */      
+        //move player in forward vector direction
         if (allowMovement){
-            //move player while left mousebutton down
             bool LMouse=Input.GetMouseButton(0);
-            if (LMouse||Input.GetKey ("w")||Input.GetKey ("a")||Input.GetKey ("s")||Input.GetKey ("d") ){
+            if (LMouse||Input.GetKey ("w")||Input.GetKey ("a")||Input.GetKey ("s")||Input.GetKey ("d")||Input.GetKeyDown(KeyCode.Space) ){
                 if (LMouse){
                     keyControl=false;
                 }
@@ -54,6 +48,13 @@ public class PlayerController : MonoBehaviour
                 }
                 transform.position += Time.deltaTime * speed * transform.forward;   //increase fwd
                 GameController.Instance.PlayerRun();
+
+                if (Input.GetKeyDown(KeyCode.Space) ){
+                    transform.position += Time.deltaTime * speed * transform.up *10;
+                    //GetComponent<BallMovement>().MoveBall(Vector3.up * 100);
+                    //GetComponent<PlayerController>().rigidPlayer.AddForce(Vector3.up*1000);
+                    //transform.position+=Vector3.up*100;
+                }                
             }
             else{
                 GameController.Instance.PlayerStop();
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()      //fixed time of physics: 0.02 seconds (50 calls per second) is the default
     {
+        //turn player-forward-vector direction
         if (allowMovement)
         {
             Quaternion targetRotation = Quaternion.LookRotation(transform.position);
@@ -76,11 +78,11 @@ public class PlayerController : MonoBehaviour
                 if(Input.GetKey ("s") ){
                     keyDir+=Vector3.right;
                 }
-                if(Input.GetKey ("d") ){
+                if(Input.GetKey ("d") || keyDir==Vector3.zero){
                     keyDir+=Vector3.forward;
                 }
                 keyDir.Normalize();
-                targetRotation.SetLookRotation(keyDir );
+                targetRotation.SetLookRotation(keyDir );        //set target quaternion to Vector3 direction
                 targetRotation *= Quaternion.Euler(0,-45,0);    //Rotation Offset: -45° to be in screen direction
             }
             else{
@@ -111,16 +113,20 @@ public class PlayerController : MonoBehaviour
     {
         allowMovement = true;
     }
-    public void StartMovement()
+
+    public void playerSpawned()
     {
         allowMovement = true;
-        GameController.Instance.BallReady(ballTransform);
+        GameController.Instance.DeployBall(ballTransform);
     }
 
-
+    [SerializeField]
+    private Transform ballTransform;
+    
     [SerializeField]
     Vector3 keyDir=Vector3.forward;
     
+    [SerializeField]
     private bool allowMovement;
 
     [SerializeField]
@@ -131,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float speedRotation;
-
+/*
     [SerializeField]
-    private Transform ballTransform;
+    private Transform ballTransform;*/
 }

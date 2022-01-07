@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour {
 
-  [SerializeField]
   private Rigidbody eggRigid;
 
   private void OnCollisionEnter(Collision collision)
