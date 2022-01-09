@@ -39,7 +39,7 @@ public class BallTriggerComponent : MonoBehaviour {
   {
     if (other.CompareTag("Player"))
     {
-      ballInput.StartGolfGame(other.GetComponent<PlayerController>());
+      GameController.Instance.Ready2shoot();  //other.GetComponent<PlayerController>() 
     }
   }
 

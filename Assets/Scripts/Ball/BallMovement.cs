@@ -13,7 +13,11 @@ public class BallMovement : MonoBehaviour {
 
   private void Awake()
   {
+    GameController.OnStopBall += StopMovement;
     eggRigid = GetComponent<Rigidbody>();
+  }
+  private void OnDestroy(){
+    GameController.OnStopBall -= StopMovement;
   }
 
   public void MoveBall(Vector3 forceDirection)

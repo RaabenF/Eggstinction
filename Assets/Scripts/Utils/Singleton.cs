@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+
+	[SerializeField]
 	public static T Instance
 	{
 		get
@@ -23,5 +25,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 			_instance = this as T;
 		}
 	}
+
+	[SerializeField]
 	private static T _instance = null;
 }

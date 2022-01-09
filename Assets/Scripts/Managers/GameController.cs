@@ -13,8 +13,10 @@ public class GameController : Singleton<GameController>
   public static event Action OnMinigolfTurn = delegate { };
   public static event Action OnEndGame = delegate { };
   public static event Action OnBallShot = delegate { };
+  public static event Action OnStopBall = delegate { };
   public static event Action OnResetBallPosition = delegate { };
   public static event Action OnPlayerDead = delegate { };
+  
 
   // Sounds events
 
@@ -81,11 +83,24 @@ public class GameController : Singleton<GameController>
   public static bool _levelWon = false;
   private static int _levelToPlay=0;
 
+  public void Ready2shoot() //PlayerController playerController)
+  {
+    if (player == null)
+    {
+      player = GetComponentInChildren<PlayerController>();
+    }
+    StopBall();
+    MinigolfTurn();
+    ball = GameObject.FindGameObjectWithTag("Ball");
+    ball.GetComponentInChildren<BallInput>().preparedToPlayGolf = true;
+  }
 
   public void DeployBall(Transform ballPosition)
   {
     _mapGenerator.InstantiateBall(ballPosition.position);
     OnBallReady();
+
+    //Info: BallTrigger -instanciates-> Ballinput
   }
 
   public void PlayerMovementTurn()
@@ -111,6 +126,9 @@ public class GameController : Singleton<GameController>
   public void BallShot()
   {
     OnBallShot();
+  }
+  public void StopBall(){
+    OnStopBall();
   }
 
   public void ResetBallPosition()
@@ -159,11 +177,14 @@ public class GameController : Singleton<GameController>
     OnButtonClicked();
   }
   
+  public GameObject ball;
+
   [SerializeField]
   private MapGenerator _mapGenerator;
 
   [SerializeField]
   private GameSettings _gameSettings;
 
-
+  [SerializeField]
+  public PlayerController player;
 }

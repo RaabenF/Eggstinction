@@ -15,7 +15,6 @@ public class BallInput : MonoBehaviour {
 
   private Vector3 lastPosition;
 
-  bool preparedToPlayGolf;
   bool mouseDown;
   bool fallSoundTriggered = false;
   bool endGame = false;
@@ -24,8 +23,6 @@ public class BallInput : MonoBehaviour {
 
   private Vector3 finalHitPoint;
   float currentCharge;
-
-  private PlayerController player;
 
   private Plane plane = new Plane(Vector3.up, Vector3.zero);
 
@@ -39,17 +36,8 @@ public class BallInput : MonoBehaviour {
     GameController.OnResetBallPosition -= OnResetLastPosition;
   }
 
-  public void StartGolfGame(PlayerController playerController)
-  {
-    if (player == null)
-    {
-      player = playerController;
-    }
-    GetComponent<BallMovement>().StopMovement();
-    GameController.Instance.MinigolfTurn();
-    preparedToPlayGolf = true;
-    lastPosition = transform.position;
-  }
+  public bool preparedToPlayGolf;
+
 
   // Update is called once per frame
   void Update()
@@ -109,6 +97,7 @@ public class BallInput : MonoBehaviour {
 
   private void chargeShot()
   {
+    lastPosition = transform.position;  //from Ready2Shoot, now in GameCtrl
     currentCharge = (finalHitPoint - transform.position).magnitude;
     currentCharge = currentCharge * chargeRate;
     currentCharge = Mathf.Clamp(currentCharge, minCharge, maxCharge);

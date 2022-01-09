@@ -59,7 +59,7 @@ Material:
     - _BumpScale: 1
     - _ContractionFactor: 1
     - _Cutoff: 0.5
-    - _DayFactor: 0.17391305
+    - _DayFactor: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1

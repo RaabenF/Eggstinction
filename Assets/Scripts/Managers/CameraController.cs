@@ -43,8 +43,7 @@ public class CameraController : Singleton<CameraController>
 
   private void LookForBall()
   {
-    ball = GameObject.FindGameObjectWithTag("Ball");
-    if(ball == null)
+    if(GameController.Instance.ball == null)
     {
       MapGenerator.OnBallSpawned += LookForBall;
     }
@@ -73,9 +72,9 @@ public class CameraController : Singleton<CameraController>
 
   public void FollowBall()
   {
-      if (cameraTarget != ball)
+      if (cameraTarget != GameController.Instance.ball)
       {
-          cameraTarget = ball;
+          cameraTarget = GameController.Instance.ball;
           Time.timeScale = 0.5f;
       }
   }
@@ -141,7 +140,7 @@ public class CameraController : Singleton<CameraController>
   private float timeTransition;
 
   private GameObject player;
-  private GameObject ball;
+  //private GameObject ball;
   private GameObject cameraTarget;
 
   private Vector3 finalPosition;

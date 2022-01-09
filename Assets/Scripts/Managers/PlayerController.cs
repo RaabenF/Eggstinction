@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rigidPlayer;
     void Awake()
     {
         allowMovement = false;
@@ -47,14 +46,7 @@ public class PlayerController : MonoBehaviour
                     keyControl=true;
                 }
                 transform.position += Time.deltaTime * speed * transform.forward;   //increase fwd
-                GameController.Instance.PlayerRun();
-
-                if (Input.GetKeyDown(KeyCode.Space) ){
-                    transform.position += Time.deltaTime * speed * transform.up *10;
-                    //GetComponent<BallMovement>().MoveBall(Vector3.up * 100);
-                    //GetComponent<PlayerController>().rigidPlayer.AddForce(Vector3.up*1000);
-                    //transform.position+=Vector3.up*100;
-                }                
+                GameController.Instance.PlayerRun();       
             }
             else{
                 GameController.Instance.PlayerStop();
@@ -64,11 +56,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()      //fixed time of physics: 0.02 seconds (50 calls per second) is the default
     {
-        //turn player-forward-vector direction
         if (allowMovement)
         {
             Quaternion targetRotation = Quaternion.LookRotation(transform.position);
             if(keyControl){
+                //turn direction of player-forward-vector
                 if(Input.GetKey ("w") ){
                     keyDir+=Vector3.left;
                 }
@@ -78,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 if(Input.GetKey ("s") ){
                     keyDir+=Vector3.right;
                 }
-                if(Input.GetKey ("d") || keyDir==Vector3.zero){
+                if(Input.GetKey ("d") ){    //|| keyDir==Vector3.zero){ //prevents Nullvector, but blocks opposite dir
                     keyDir+=Vector3.forward;
                 }
                 keyDir.Normalize();
@@ -96,17 +88,28 @@ public class PlayerController : MonoBehaviour
                     Vector3 targetPoint = ray.GetPoint(cursordist);
                     targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
                 }
-
             }
-            //spherical interpolate (rotation steps):
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speedRotation * Time.deltaTime);
+            //fixed time inputs always accessible:
+            if (0==jumpstep && Input.GetKeyDown(KeyCode.Space) ){
+                jumpstep=1;
+            }
+            if(0 < jumpstep && jumpstep < jumpheight){
+                transform.position += Time.deltaTime * speed * transform.up;
+                jumpstep++;
+            }
+            else{
+                jumpstep=0;
+            }
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speedRotation * Time.deltaTime); //spherical interpolate (rotation steps)
         }
     }
+    private int jumpstep;
+    const int jumpheight=20;
 
     public void StopMovement()
     {
         allowMovement = false;
-        //GameController.Instance.PlayerStop();
+        GameController.Instance.PlayerStop();
     }
 
     public void ResumeMovement()
@@ -117,8 +120,14 @@ public class PlayerController : MonoBehaviour
     public void playerSpawned()
     {
         allowMovement = true;
-        GameController.Instance.DeployBall(ballTransform);
+        if(!ballDeployed){
+            GameController.Instance.DeployBall(ballTransform);
+            ballDeployed=true;
+        }
     }
+
+    [SerializeField]
+    bool ballDeployed=false;
 
     [SerializeField]
     private Transform ballTransform;
@@ -137,7 +146,5 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float speedRotation;
-/*
-    [SerializeField]
-    private Transform ballTransform;*/
+
 }
