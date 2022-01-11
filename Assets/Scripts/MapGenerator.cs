@@ -22,11 +22,12 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+
     public void Init(GameSettings.LevelSettings level, float destructionTime)
     {
         string mapText = LoadMap();
         _levelSettings = level;
-        _destructionTime = 3f;//destructionTime;
+        _destructionTime = GameController._levelToPlay>0 ? 2 : 0;  //destructionTime;  =2f;
         GenerateMap(mapText);
         InstantiatePlayerAndBall(_levelSettings.StartRow, _levelSettings.StartCol);
         _currentDestructionRadius = CalculateMaxDestructionRadius();
@@ -56,7 +57,7 @@ public class MapGenerator : MonoBehaviour
     private IEnumerator DestroyWorldCorroutine(float destructionTime)
     {
         float init = _currentDestructionRadius;
-        while (true)
+        while (destructionTime>0)   //true)
         {
             yield return new WaitForSeconds(destructionTime);
             //ChangeSkybox();
@@ -158,9 +159,9 @@ public class MapGenerator : MonoBehaviour
     {
         int row = 0;
         int col = 0;
-        string[] rows = mapText.Split('\n');
+        string[] rows = mapText.Split('\n');    //eg ROW1: 02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-02,0,0-01,4,0
         _mapRows = rows.Length;
-
+    //parser:
         for (int i = 0; i < _mapRows; i++)
         {
             string[] tiles = rows[i].Split('-');
@@ -171,7 +172,7 @@ public class MapGenerator : MonoBehaviour
                 int prefabIndex = int.Parse(tileData[0]);
                 int yIndex = int.Parse(tileData[1]);
                 int rotIndex = int.Parse(tileData[2]);
-                InstantiateTile(prefabIndex, row, col, yIndex, rotIndex);
+                InstantiateTile(prefabIndex, row, col, yIndex, rotIndex);   // <-work (3 numbers) 
                 col += _tileSeparation;
             }
             row += _tileSeparation;

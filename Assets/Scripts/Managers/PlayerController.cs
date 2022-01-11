@@ -73,9 +73,11 @@ public class PlayerController : MonoBehaviour
                 if(Input.GetKey ("d") ){    //|| keyDir==Vector3.zero){ //prevents Nullvector, but blocks opposite dir
                     keyDir+=Vector3.forward;
                 }
+                if(keyDir!=null){// keyDir+=Vector3.forward;
                 keyDir.Normalize();
                 targetRotation.SetLookRotation(keyDir );        //set target quaternion to Vector3 direction
                 targetRotation *= Quaternion.Euler(0,-45,0);    //Rotation Offset: -45° to be in screen direction
+                }
             }
             else{
                 //raycast cursor for looking direction

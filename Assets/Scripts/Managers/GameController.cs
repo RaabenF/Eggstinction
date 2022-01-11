@@ -75,13 +75,14 @@ public class GameController : Singleton<GameController>
       _tutorialPlayed = true;
     }
     Debug.Log("Loading level " + _levelsList[_levelToPlay]);
+    //GameSettings.cs and MapGen loads maptiles from .txt file
     _mapGenerator.Init(_gameSettings.Levels[_levelsList[_levelToPlay]], _gameSettings.DestructionTime);
     OnStartGame();
   }
 
   public static bool _tutorialPlayed = false;
   public static bool _levelWon = false;
-  private static int _levelToPlay=0;
+  public static int _levelToPlay=0;
 
   public void Ready2shoot() //PlayerController playerController)
   {
@@ -177,6 +178,7 @@ public class GameController : Singleton<GameController>
     OnButtonClicked();
   }
   
+  [SerializeField]
   public GameObject ball;
 
   [SerializeField]
@@ -185,6 +187,7 @@ public class GameController : Singleton<GameController>
   [SerializeField]
   private GameSettings _gameSettings;
 
-  [SerializeField]
+  //[SerializeField]
   public PlayerController player;
+
 }

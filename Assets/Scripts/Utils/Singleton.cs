@@ -26,6 +26,14 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 		}
 	}
 
-	[SerializeField]
+	//fix "Singleton no inicializada" when updating scripts live
+	private void Update(){
+		if(_instance == null)
+		{
+			_instance = this as T;
+		}		
+	}
+
+	//[SerializeField]
 	private static T _instance = null;
 }

@@ -30,7 +30,7 @@ public class GameSettings : ScriptableObject
 	}
 	
 	[SerializeField]
-	private float _destructionTime = 2f;	//->map generator sets
+	private float _destructionTime = 2f;	// 2f -> map generator sets [init(...)..._destructionTime]
 	[SerializeField]
 	private List<LevelSettings> _levels;
 }
