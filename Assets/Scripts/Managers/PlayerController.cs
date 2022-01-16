@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
-    void Awake()
+    protected new void Awake()
     {
+        base.Awake();
         allowMovement = false;
         GameController.OnMinigolfTurn += StopMovement;
         GameController.OnPlayerMovementTurn += ResumeMovement;
@@ -122,17 +123,8 @@ public class PlayerController : MonoBehaviour
     public void playerSpawned()
     {
         allowMovement = true;
-        if(!ballDeployed){
-            GameController.Instance.DeployBall(ballTransform);
-            ballDeployed=true;
-        }
+            GameController.Instance.DeployBall(transform.position);
     }
-
-    [SerializeField]
-    bool ballDeployed=false;
-
-    [SerializeField]
-    private Transform ballTransform;
     
     [SerializeField]
     Vector3 keyDir=Vector3.forward;

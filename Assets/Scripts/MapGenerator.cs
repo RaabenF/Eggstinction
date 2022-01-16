@@ -27,7 +27,7 @@ public class MapGenerator : MonoBehaviour
     {
         string mapText = LoadMap();
         _levelSettings = level;
-        _destructionTime = GameController._levelToPlay>0 ? 2 : 0;  //destructionTime;  =2f;
+        _destructionTime = GameController._levelToPlay>0 ? 10 : 0;  //destructionTime;  =2f;
         GenerateMap(mapText);
         InstantiatePlayerAndBall(_levelSettings.StartRow, _levelSettings.StartCol);
         _currentDestructionRadius = CalculateMaxDestructionRadius();
@@ -322,6 +322,8 @@ public class MapGenerator : MonoBehaviour
     private int _mapRows;
 
     private GameSettings.LevelSettings _levelSettings;
+    
+    [SerializeField]    
     private float _destructionTime;
 
     private int _currentDestructionRadius;

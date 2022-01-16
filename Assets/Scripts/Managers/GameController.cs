@@ -96,11 +96,11 @@ public class GameController : Singleton<GameController>
     ball.GetComponentInChildren<BallInput>().preparedToPlayGolf = true;
   }
 
-  public void DeployBall(Transform ballPosition)
+  public void DeployBall(Vector3 playerpos)
   {
-    _mapGenerator.InstantiateBall(ballPosition.position);
+    playerpos.z -=0.8f;
+    if(ball==null)_mapGenerator.InstantiateBall(playerpos);
     OnBallReady();
-
     //Info: BallTrigger -instanciates-> Ballinput
   }
 
@@ -177,8 +177,11 @@ public class GameController : Singleton<GameController>
   {
     OnButtonClicked();
   }
-  
-  [SerializeField]
+
+  //[SerializeField]
+  public PlayerController player;
+
+  //[SerializeField]
   public GameObject ball;
 
   [SerializeField]
@@ -186,8 +189,5 @@ public class GameController : Singleton<GameController>
 
   [SerializeField]
   private GameSettings _gameSettings;
-
-  //[SerializeField]
-  public PlayerController player;
 
 }

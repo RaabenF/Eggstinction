@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BallTriggerComponent : MonoBehaviour {
-  [SerializeField]
   private BallInput ballInput;
 
   private Collider trigger;
