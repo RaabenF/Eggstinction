@@ -74,7 +74,7 @@ public class PlayerController : Singleton<PlayerController>
                 if(Input.GetKey ("d") ){    //|| keyDir==Vector3.zero){ //prevents Nullvector, but blocks opposite dir
                     keyDir+=Vector3.forward;
                 }
-                if(keyDir!=null){// keyDir+=Vector3.forward;
+                if(keyDir!=Vector3.zero){// keyDir+=Vector3.forward;
                 keyDir.Normalize();
                 targetRotation.SetLookRotation(keyDir );        //set target quaternion to Vector3 direction
                 targetRotation *= Quaternion.Euler(0,-45,0);    //Rotation Offset: -45° to be in screen direction
@@ -107,7 +107,7 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
     private int jumpstep;
-    const int jumpheight=20;
+    const int jumpheight=15;
 
     public void StopMovement()
     {

@@ -24,7 +24,7 @@ public class CameraController : Singleton<CameraController>
     GameController.OnMinigolfTurn -= ZoomOut;
     GameController.OnResetBallPosition -= ResetPosition;
     MapGenerator.OnPlayerSpawned -= LookForPlayer;
-    MapGenerator.OnBallSpawned -= LookForBall;
+    GameController.OnBallReady -= LookForBall;
   }
 
   private void LookForPlayer()
@@ -45,7 +45,7 @@ public class CameraController : Singleton<CameraController>
   {
     if(GameController.Instance.ball == null)
     {
-      MapGenerator.OnBallSpawned += LookForBall;
+      GameController.OnBallReady += LookForBall;
     }
   }
 

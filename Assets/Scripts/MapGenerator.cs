@@ -27,7 +27,11 @@ public class MapGenerator : MonoBehaviour
     {
         string mapText = LoadMap();
         _levelSettings = level;
+<<<<<<< Updated upstream
         _destructionTime = GameController._levelToPlay>0 ? 10 : 0;  //destructionTime;  =2f;
+=======
+        _destructionTime = GameController._levelToPlay>0 ? 5 : 0;  //destructionTime;  =2f;
+>>>>>>> Stashed changes
         GenerateMap(mapText);
         InstantiatePlayerAndBall(_levelSettings.StartRow, _levelSettings.StartCol);
         _currentDestructionRadius = CalculateMaxDestructionRadius();
@@ -35,13 +39,13 @@ public class MapGenerator : MonoBehaviour
         DynamicGI.UpdateEnvironment();
         StartCoroutine(DestroyWorldCorroutine(_destructionTime));
     }
-
+/*
     public void InstantiateBall(Vector3 ballPosition)
     {
         Instantiate(_ballPrefab, ballPosition, Quaternion.identity);
         OnBallSpawned();
     }
-
+*/
     private void InstantiatePlayerAndBall(int startRow, int startCol)
     {
         MapTile mt = GetMapTile(startRow, startCol);
@@ -51,9 +55,10 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField]
     private GameObject _playerPrefab;
+    /*
     [SerializeField]
     private GameObject _ballPrefab;
-
+*/
     private IEnumerator DestroyWorldCorroutine(float destructionTime)
     {
         float init = _currentDestructionRadius;
