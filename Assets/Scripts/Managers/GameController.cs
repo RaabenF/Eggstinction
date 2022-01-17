@@ -104,9 +104,6 @@ public class GameController : Singleton<GameController>
     //Info: BallTrigger -instanciates-> Ballinput
   }
 
-    [SerializeField]
-    private GameObject _ballPrefab;
-
   public void PlayerMovementTurn()
   {
     OnPlayerMovementTurn();

@@ -7,7 +7,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     public static event Action OnPlayerSpawned = delegate { };
-    public static event Action OnBallSpawned = delegate { };
+    //public static event Action OnBallSpawned = delegate { };
 
     void Awake()
     {
@@ -39,7 +39,7 @@ public class MapGenerator : MonoBehaviour
     public void InstantiateBall(Vector3 ballPosition)
     {
         Instantiate(_ballPrefab, ballPosition, Quaternion.identity);
-        OnBallSpawned();
+        //OnBallSpawned();
     }
 
     private void InstantiatePlayerAndBall(int startRow, int startCol)
