@@ -68,4 +68,5 @@ public class AnimationController : MonoBehaviour
     private int randomIdleFloat = Animator.StringToHash("RandomIdle");
     private int goToWinState = Animator.StringToHash("Win");
 
+
 }

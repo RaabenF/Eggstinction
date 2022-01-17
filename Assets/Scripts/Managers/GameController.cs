@@ -98,13 +98,8 @@ public class GameController : Singleton<GameController>
 
   public void DeployBall(Vector3 playerpos)
   {
-<<<<<<< Updated upstream
     playerpos.z -=0.8f;
     if(ball==null)_mapGenerator.InstantiateBall(playerpos);
-=======
-    //_mapGenerator.InstantiateBall(ballPosition.position);
-    Instantiate(_ballPrefab, ballPosition.position, Quaternion.identity);
->>>>>>> Stashed changes
     OnBallReady();
     //Info: BallTrigger -instanciates-> Ballinput
   }
