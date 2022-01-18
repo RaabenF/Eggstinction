@@ -51,11 +51,20 @@ public class CameraController : Singleton<CameraController>
 
   void Update()
   {
-    if (cameraTarget != null)
-    {
-        finalPosition = cameraTarget.transform.position + new Vector3(10.0f, 8.5f, 10.0f);
-        transform.position = finalPosition;
+    //if (cameraTarget != null)
+    //if(GameController.Instance.ball == null){
+    if(GameObject.Find("goal") != null){
+      finalPosition = GameObject.Find("Goal").transform.position;
+        Debug.LogWarning("2");
+      finalPosition = Vector3.Cross(player.transform.position, finalPosition);
     }
+    else{
+        //finalPosition = Vector3.Lerp(player.transform.position, GameController.Instance.ball.transform.position, 0.5f);
+        //finalPosition = GameController.Instance.ball.transform.position;//GameObject.FindGameObjectWithTag("Goal").transform.position;
+        if(null != finalPosition) finalPosition = Vector3.Lerp(player.transform.position, finalPosition, 0.5f) + camOffset;
+        finalPosition = cameraTarget.transform.position + camOffset;
+    }
+    transform.position = finalPosition;
   }
 
   void ResetPosition()
@@ -139,8 +148,8 @@ public class CameraController : Singleton<CameraController>
   [SerializeField]
   private float timeTransition;
 
+  private Vector3 camOffset = new Vector3(10.0f, 8.5f, 10.0f);
   private GameObject player;
-  //private GameObject ball;
   private GameObject cameraTarget;
 
   private Vector3 finalPosition;
